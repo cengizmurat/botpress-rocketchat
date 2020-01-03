@@ -1,9 +1,9 @@
 const axios = require('axios');
 
-const host = 'https://route4vls7xee-codeready-workspaces.apps.ocp.lab-nxtit.com';
+const config = require('./config');
 
 const instance = axios.create({
-    baseURL: host + '/api/v1/bots',
+    baseURL: config.botpressHost + '/api/v1/bots',
 });
 
 async function response(text, userId, botId) {

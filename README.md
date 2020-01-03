@@ -18,9 +18,10 @@ npm install
 - Create a `config.json` file with the following information:
 ```
 {
-  "host": ROCKETCHAT_URL,
+  "botpressHost": BOTPRESS_URL, // "http//" or "https://" is required
+  "rocketchatHost": ROCKETCHAT_URL, // you can ommit it here
   "botUsername": BOT_USERNAME,
-  "password": BOT_PASSWORD,
+  "botPassword": BOT_PASSWORD,
   "ssl": true/false
 }
 ```

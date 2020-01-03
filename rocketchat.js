@@ -47,8 +47,8 @@ async function processMessages(error, message, messageOptions) {
 }
 
 async function runbot(config) {
-  const conn = await driver.connect({ host: config.host, useSsl: config.ssl });
-  myUserId = await driver.login({ username: config.botUsername, password: config.password });
+  const conn = await driver.connect({ host: config.rocketchatHost, useSsl: config.ssl });
+  myUserId = await driver.login({ username: config.botUsername, password: config.botPassword });
   botUsername = config.botUsername;
 
   // set up subscriptions - rooms we are interested in listening to
