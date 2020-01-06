@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const config = require('./config');
+const config = require('../config');
 
 const instance = axios.create({
     baseURL: config.botpressHost + '/api/v1/bots',
