@@ -3,7 +3,7 @@ const fs = require('fs');
 const configFile = 'config.json';
 
 if (fs.existsSync(configFile)) {
-  const config = require('./config');
+  const config = require('./' + configFile);
   const rocketchat = require('./src/rocketchat');
 
   rocketchat.runbot(config);
