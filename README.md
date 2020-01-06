@@ -4,13 +4,13 @@ NPM v6 and Node 10
 
 ## Installation
 
-1. Clone the repository
+#### Clone the repository
 ```
 git clone https://github.com/cengizmurat/botpress-rocketchat.git
 cd botpress-rocketchat
 ```
 
-2. Install dependencies
+#### Install dependencies
 ```
 npm install
 ```
@@ -22,7 +22,7 @@ git config --global url."https://".insteadOf git://
 
 ## Run the server
 
-1. Create a `config.json` file with the following information:
+#### Create a `config.json` file with the following information
 ```
 {
   "botpressHost": BOTPRESS_URL, # http:// or https:// is required
@@ -33,7 +33,7 @@ git config --global url."https://".insteadOf git://
 }
 ```
 
-2. Run the following command
+#### Run the following command
 ```
 npm start
 ```
