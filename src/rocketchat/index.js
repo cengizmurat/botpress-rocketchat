@@ -13,12 +13,7 @@ async function processMessages(error, message, messageOptions) {
       return;
     }
 
-    let conversationId = message.u.username;
-    const roomName = await driver.getRoomName(message.rid);
-    if (roomName) {
-      conversationId += '-' + roomName;
-    }
-
+    const conversationId = message.u.username;
     const responses = await botpress.response(message.msg, conversationId, botUsername);
     console.log('[responses]');
     console.log(responses);
