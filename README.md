@@ -22,18 +22,31 @@ git config --global url."https://".insteadOf git://
 
 ## Run the server
 
-#### Create a `config.json` file with the following information
+#### Configuration
+
+Configuration variables are needed in order to run the server. You can provide them either through environment variables or with a `config.json` file.
+
+The following environment variables are required:
+- `BOTPRESS_URL`: URL of your Botpress server (ex: `https://mybotpress.domain.com`)
+- `ROCKETCHAT_HOST`: Host of your Rocketchat server (ex: `myrocketchat.domain.com`)
+- `ROCKETCHAT_USERNAME`: The `@username` of the account to connect to
+- `ROCKETCHAT_PASSWORD`: The password of the account
+- `ROCKETCHAT_SSL`: `true/false` (`http` or `https` ?)
+
+Or an example of a valid `config.json` file:
 ```
 {
-  "botpressHost": BOTPRESS_URL, # http:// or https:// is required
-  "rocketchatHost": ROCKETCHAT_URL, # you can ommit it here
-  "botUsername": BOT_USERNAME,
-  "botPassword": BOT_PASSWORD,
-  "ssl": true/false
+  "BOTPRESS_URL": "https://mybotpress.domain.com",
+  "ROCKETCHAT_HOST": "myrocketchat.domain.com",
+  "ROCKETCHAT_USERNAME": "myusername",
+  "ROCKETCHAT_PASSWORD": "mypassword",
+  "ROCKETCHAT_SSL": true
 }
 ```
 
-#### Run the following command
+#### Start
+
+Once you have set up your variables, you can run the following command:
 ```
 npm start
 ```
