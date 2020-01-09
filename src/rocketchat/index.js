@@ -3,18 +3,17 @@ const { driver } = require('@rocket.chat/sdk');
 const utils = require('./utils');
 const botpress = require('../botpress');
 
-var myUserId;
-var botUsername;
+var rocketchatId;
 
 async function processMessages(error, message, messageOptions) {
   if (!error) {
     // Do not process own messages
-    if (message.u._id === myUserId) {
+    if (message.u._id === rocketchatId) {
       return;
     }
 
     const conversationId = message.u.username;
-    const responses = await botpress.response(message.msg, conversationId, botUsername);
+    const responses = await botpress.response(message.msg, conversationId);
     console.log('[responses]');
     console.log(responses);
 
@@ -31,9 +30,10 @@ async function processMessages(error, message, messageOptions) {
 }
 
 async function runbot(config) {
-  const conn = await driver.connect({ host: config.rocketchatHost, useSsl: config.ssl });
-  myUserId = await driver.login({ username: config.botUsername, password: config.botPassword });
-  botUsername = config.botUsername;
+  const conn = await driver.connect({ host: config.ROCKETCHAT_HOST, useSsl: config.ROCKETCHAT_SSL });
+  rocketchatId = await driver.login({ username: config.ROCKETCHAT_USERNAME, password: config.ROCKETCHAT_PASSWORD });
+
+  botpress.init(config);
 
   // set up subscriptions - rooms we are interested in listening to
   const subscribed = await driver.subscribeToMessages();

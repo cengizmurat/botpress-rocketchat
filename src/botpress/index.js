@@ -1,12 +1,23 @@
 const axios = require('axios');
 
-const config = require('../../config');
+let instance;
+let botId;
 
-const instance = axios.create({
-    baseURL: config.botpressHost + '/api/v1/bots',
-});
+function init(config) {
+  let botpressUrl = config.BOTPRESS_URL;
 
-async function response(text, userId, botId) {
+  const l = botpressUrl.length;
+  if (botpressUrl.charAt(l - 1) === '/') {
+    botpressUrl = botpressUrl.substring(0, l - 1);
+  }
+
+  instance = axios.create({
+    baseURL: botpressUrl + '/api/v1/bots',
+  });
+  botId = config.ROCKETCHAT_USERNAME;
+}
+
+async function response(text, userId) {
   const msg = {
     type: 'text',
     text: text,
@@ -15,4 +26,5 @@ async function response(text, userId, botId) {
   return r.data.responses;
 }
 
+exports.init = init;
 exports.response = response;
