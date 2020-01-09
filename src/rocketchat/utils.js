@@ -20,8 +20,7 @@ function createButtons(title, replies) {
   attachment.title = he.decode(title);
 
   const actions = [];
-  for (const k in replies) {
-    const quickReply = replies[k];
+  for (const quickReply of replies) {
     actions.push({
       type: 'button',
       text: he.decode(quickReply.title),

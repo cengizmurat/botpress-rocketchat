@@ -18,8 +18,7 @@ async function processMessages(error, message, messageOptions) {
     console.log(responses);
 
     // Loop through each response message
-    for (const j in responses) {
-      const response = responses[j];
+    for (const response of responses) {
       if (response.type === 'custom' && response.component === 'QuickReplies') { // Buttons message
         await utils.sendAttachmentMessage(response, message.rid);
       } else if (response.type === 'text') { // Text message
