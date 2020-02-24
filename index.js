@@ -3,7 +3,7 @@ const fs = require('fs');
 const configFile = 'config.json';
 
 let config = {};
-const variables = ['BOTPRESS_URL', 'ROCKETCHAT_HOST', 'ROCKETCHAT_USERNAME', 'ROCKETCHAT_PASSWORD', 'ROCKETCHAT_SSL'];
+const variables = ['BOTPRESS_URL', 'BOTPRESS_BOT', 'ROCKETCHAT_HOST', 'ROCKETCHAT_USERNAME', 'ROCKETCHAT_PASSWORD', 'ROCKETCHAT_SSL'];
 
 if (fs.existsSync(configFile)) {
   console.error(`Loading "${configFile}" file...`);

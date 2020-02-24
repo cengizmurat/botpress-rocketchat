@@ -14,7 +14,7 @@ function init(config) {
   instance = axios.create({
     baseURL: botpressUrl + '/api/v1/bots',
   });
-  botId = config.ROCKETCHAT_USERNAME;
+  botId = config.BOTPRESS_BOT;
 }
 
 async function response(text, userId) {
