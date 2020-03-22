@@ -12,7 +12,7 @@ if (fs.existsSync(configFile)) {
   console.error(`"${configFile}" file not found, checking for environment variables...`);
   for (const variable of variables) {
     const value = process.env[variable];
-    if (value) {
+    if (value !== undefined) {
       config[variable] = value;
     }
   }
@@ -21,7 +21,7 @@ if (fs.existsSync(configFile)) {
 let allVariables = true;
 for (const variable of variables) {
   const value = config[variable];
-  if (!value) {
+  if (value === undefined) {
     console.log(`Configuration variable ${variable} is missing.`);
     allVariables = false;
   }
