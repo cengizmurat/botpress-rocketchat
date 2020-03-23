@@ -8,7 +8,7 @@ var rocketchatId;
 async function processMessages(error, message, messageOptions) {
   if (!error) {
     // Do not process own messages
-    if (message.u._id === rocketchatId) {
+    if (message.u._id === rocketchatId || !messageOptions.roomParticipant) {
       return;
     }
 
