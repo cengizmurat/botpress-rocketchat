@@ -22,7 +22,7 @@ async function response(text, userId) {
     type: 'text',
     text: text,
   };
-  const r = await instance.post(`/${botId}/converse/${userId}`, msg);
+  const r = await instance.post(`/${botId}/converse/${botId}-${userId}`, msg);
   return r.data.responses;
 }
 
