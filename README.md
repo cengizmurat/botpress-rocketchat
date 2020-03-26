@@ -36,6 +36,7 @@ The following environment variables are required:
 - `ROCKETCHAT_USERNAME`: The `@username` of the account to connect to
 - `ROCKETCHAT_PASSWORD`: The password of the account
 - `ROCKETCHAT_SSL`: `true/false` (`http` or `https` ?)
+- `MENTION_ONLY`: `true/false` (if `true` bot only processes mentioned messages in public channels or direct messages, if `false` bot processes all visible messages)
 
 Or an example of a valid `config.json` file:
 ```
@@ -45,7 +46,8 @@ Or an example of a valid `config.json` file:
   "ROCKETCHAT_HOST": "myrocketchat.domain.com",
   "ROCKETCHAT_USERNAME": "myusername",
   "ROCKETCHAT_PASSWORD": "mypassword",
-  "ROCKETCHAT_SSL": true
+  "ROCKETCHAT_SSL": true,
+  "MENTION_ONLY": true
 }
 ```
 

@@ -3,13 +3,39 @@ const { driver } = require('@rocket.chat/sdk');
 const utils = require('./utils');
 const botpress = require('../botpress');
 
-var rocketchatId;
+var rocketchatId, shouldMention, rocketchatUsername;
+
+function shouldProcess(message, messageOptions) {
+  if (messageOptions.roomType === 'd') {
+    // Process direct messages
+    return true;
+  }
+
+  for (const mention of message.mentions) {
+    const mentionedUsername = mention.username;
+    if (mentionedUsername === rocketchatUsername ||
+      mentionedUsername === 'all' ||
+      mentionedUsername === 'here') {
+      // Process mentioned messages
+      return true;
+    }
+  }
+
+  return false;
+}
 
 async function processMessages(error, message, messageOptions) {
   if (!error) {
     // Do not process own messages
     if (message.u._id === rocketchatId || !messageOptions.roomParticipant) {
       return;
+    }
+
+    if (shouldMention) { // If should mention bot
+      if (!shouldProcess(message, messageOptions)) {
+        // Direct message or bot mentioned
+        return;
+      }
     }
 
     const conversationId = message.u.username;
@@ -31,6 +57,8 @@ async function processMessages(error, message, messageOptions) {
 async function runbot(config) {
   const conn = await driver.connect({ host: config.ROCKETCHAT_HOST, useSsl: config.ROCKETCHAT_SSL });
   rocketchatId = await driver.login({ username: config.ROCKETCHAT_USERNAME, password: config.ROCKETCHAT_PASSWORD });
+  rocketchatUsername = config.ROCKETCHAT_USERNAME;
+  shouldMention = config.MENTION_ONLY;
 
   botpress.init(config);
 
