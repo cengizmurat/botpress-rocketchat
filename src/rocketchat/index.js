@@ -58,7 +58,7 @@ async function runbot(config) {
   const conn = await driver.connect({ host: config.ROCKETCHAT_HOST, useSsl: config.ROCKETCHAT_SSL });
   rocketchatId = await driver.login({ username: config.ROCKETCHAT_USERNAME, password: config.ROCKETCHAT_PASSWORD });
   rocketchatUsername = config.ROCKETCHAT_USERNAME;
-  shouldMention = config.MENTION_ONLY;
+  shouldMention = config.MENTION_ONLY === true || config.MENTION_ONLY === 'true';
 
   botpress.init(config);
 
