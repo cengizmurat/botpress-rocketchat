@@ -3,9 +3,10 @@ const fs = require('fs');
 const configFile = 'config.json';
 
 let config = {};
-const variables = ['BOTPRESS_URL', 'BOTPRESS_BOT', 'ROCKETCHAT_HOST', 'ROCKETCHAT_USERNAME', 'ROCKETCHAT_PASSWORD', 'ROCKETCHAT_SSL', 'MENTION_ONLY'];
+const variables = ['BOTPRESS_URL', 'BOTPRESS_BOT', 'ROCKETCHAT_HOST', 'ROCKETCHAT_USERNAME', 'ROCKETCHAT_PASSWORD', 'ROCKETCHAT_SSL'];
 // Optional variables and their default values
 const optionalVariables = {
+  'MENTION_ONLY': false,
   'DELAY': '0',
 };
 
