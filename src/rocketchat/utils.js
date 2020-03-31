@@ -5,7 +5,6 @@ const he = require('he');
  * Send appropriate message according to message type received from Botpress
 **/
 async function sendMessage(response, roomId) {
-  console.log('hey');
   if (response.type === 'text') {
     // Simple text message
     return await sendTextMessage(response, roomId);
@@ -37,8 +36,6 @@ async function sendCarouselMessage(response, roomId) {
   }
   msg.attachments = attachments;
 
-  console.log('Sending carousel...');
-  console.log(msg);
   return await driver.sendMessage(msg);
 }
 

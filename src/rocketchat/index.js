@@ -38,10 +38,11 @@ async function processMessages(error, message, messageOptions) {
       }
     }
 
-    console.log('MESSAGE');
+    const conversationId = message.u.username;
+
+    console.log('[user message]');
     console.log(message);
 
-    const conversationId = message.u.username;
     const responses = await botpress.response(message.msg, conversationId);
     console.log('[responses]');
     console.log(responses);
