@@ -38,6 +38,9 @@ async function processMessages(error, message, messageOptions) {
       }
     }
 
+    console.log('MESSAGE');
+    console.log(message);
+
     const conversationId = message.u.username;
     const responses = await botpress.response(message.msg, conversationId);
     console.log('[responses]');
@@ -45,11 +48,7 @@ async function processMessages(error, message, messageOptions) {
 
     // Loop through each response message
     for (const response of responses) {
-      if (response.type === 'custom' && response.component === 'QuickReplies') { // Buttons message
-        await utils.sendAttachmentMessage(response, message.rid);
-      } else if (response.type === 'text') { // Text message
-        await utils.sendTextMessage(response, message.rid);
-      }
+      await utils.sendMessage(response, message.rid);
     }
   }
 }
