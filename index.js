@@ -15,7 +15,7 @@ if (fs.existsSync(configFile)) {
   config = require('./' + configFile);
 } else {
   console.log(`"${configFile}" file not found, checking for environment variables...`);
-  for (const variable of variables) {
+  for (const variable of variables.concat(Object.keys(optionalVariables))) {
     const value = process.env[variable];
     if (value !== undefined) {
       config[variable] = value;
