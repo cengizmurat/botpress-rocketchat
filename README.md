@@ -29,14 +29,17 @@ git config --global url."https://".insteadOf git://
 
 Configuration variables are needed in order to run the server. You can provide them either through environment variables or with a `config.json` file.
 
-The following environment variables are required:
+The following environment variables are **required**:
 - `BOTPRESS_URL`: URL of your Botpress server (ex: `https://mybotpress.domain.com`)
 - `BOTPRESS_BOT`: ID of the Botpress bot
 - `ROCKETCHAT_HOST`: Host of your Rocketchat server (ex: `myrocketchat.domain.com`)
 - `ROCKETCHAT_USERNAME`: The `@username` of the account to connect to
 - `ROCKETCHAT_PASSWORD`: The password of the account
 - `ROCKETCHAT_SSL`: `true/false` (`http` or `https` ?)
-- `MENTION_ONLY`: `true/false` (if `true` bot only processes mentioned messages in public channels or direct messages, if `false` bot processes all visible messages)
+
+The following environment variables are **optional**:
+- `MENTION_ONLY`: `true/false` (if `true` bot only processes mentioned messages in public channels or direct messages, if `false` bot processes all visible messages). Defaults to `false`
+- `DELAY`: Integer representing the delay in milliseconds between each message sent to Rocket.Chat channel. Defaults to `0`
 
 Or an example of a valid `config.json` file:
 ```
