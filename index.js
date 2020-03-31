@@ -4,17 +4,29 @@ const configFile = 'config.json';
 
 let config = {};
 const variables = ['BOTPRESS_URL', 'BOTPRESS_BOT', 'ROCKETCHAT_HOST', 'ROCKETCHAT_USERNAME', 'ROCKETCHAT_PASSWORD', 'ROCKETCHAT_SSL', 'MENTION_ONLY'];
+// Optional variables and their default values
+const optionalVariables = {
+  'DELAY': '0',
+};
 
 if (fs.existsSync(configFile)) {
-  console.error(`Loading "${configFile}" file...`);
+  console.log(`Loading "${configFile}" file...`);
   config = require('./' + configFile);
 } else {
-  console.error(`"${configFile}" file not found, checking for environment variables...`);
+  console.log(`"${configFile}" file not found, checking for environment variables...`);
   for (const variable of variables) {
     const value = process.env[variable];
     if (value !== undefined) {
       config[variable] = value;
     }
+  }
+}
+
+for (const [optionalVariable, defaultValue] of Object.entries(optionalVariables)) {
+  const definedValue = config[optionalVariable];
+  if (definedValue === undefined) {
+    console.log(`Optional configuration variable ${optionalVariable} not defined, using default value "${defaultValue}"`);
+    config[optionalVariable] = defaultValue;
   }
 }
 

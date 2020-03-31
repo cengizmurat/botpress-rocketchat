@@ -3,7 +3,7 @@ const { driver } = require('@rocket.chat/sdk');
 const utils = require('./utils');
 const botpress = require('../botpress');
 
-var rocketchatId, shouldMention, rocketchatUsername;
+var rocketchatId, shouldMention, rocketchatUsername, delay;
 
 function shouldProcess(message, messageOptions) {
   if (messageOptions.roomType === 'd') {
@@ -50,15 +50,30 @@ async function processMessages(error, message, messageOptions) {
     // Loop through each response message
     for (const response of responses) {
       await utils.sendMessage(response, message.rid);
+      if (delay > 0) {
+        await sleep(delay);
+      }
     }
   }
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 async function runbot(config) {
-  const conn = await driver.connect({ host: config.ROCKETCHAT_HOST, useSsl: config.ROCKETCHAT_SSL });
-  rocketchatId = await driver.login({ username: config.ROCKETCHAT_USERNAME, password: config.ROCKETCHAT_PASSWORD });
   rocketchatUsername = config.ROCKETCHAT_USERNAME;
   shouldMention = config.MENTION_ONLY === true || config.MENTION_ONLY === 'true';
+  delay = Number(config.DELAY);
+  if (isNaN(delay)) {
+    console.error(`Delay configuration "${config.DELAY}" is not a number`);
+    return;
+  }
+
+  const conn = await driver.connect({ host: config.ROCKETCHAT_HOST, useSsl: config.ROCKETCHAT_SSL });
+  rocketchatId = await driver.login({ username: config.ROCKETCHAT_USERNAME, password: config.ROCKETCHAT_PASSWORD });
 
   botpress.init(config);
 
