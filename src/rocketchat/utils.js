@@ -9,8 +9,10 @@ async function sendMessage(response, roomId) {
   if (response.type === 'text') {
     // Simple text message
     return await sendTextMessage(response, roomId);
+  } else if (response.type === 'carousel') {
+    // Carousel message
+    return await sendCarouselMessage(response, roomId);
   } else if (response.type === 'custom') {
-    // Attachment messages
     if (response.component === 'QuickReplies') {
       // Quick replies message
       return await sendQuickRepliesMessage(response, roomId);
@@ -23,6 +25,20 @@ async function sendMessage(response, roomId) {
 
 async function sendTextMessage(response, roomId) {
   const msg = await driver.prepareMessage(he.decode(response.text), roomId);
+  return await driver.sendMessage(msg);
+}
+
+async function sendCarouselMessage(response, roomId) {
+  const msg = await driver.prepareMessage(response.text, roomId);
+  const attachments = [];
+  for (const element of response.elements) {
+    const attachment = createButtons(element.title, element.buttons);
+    attachments.push(attachment);
+  }
+  msg.attachments = attachments;
+
+  console.log('Sending carousel...');
+  console.log(msg);
   return await driver.sendMessage(msg);
 }
 
@@ -59,6 +75,7 @@ function createButtons(title, replies) {
   attachment.title = he.decode(title);
 
   const actions = [];
+  replies = replies || [];
   for (const quickReply of replies) {
     actions.push({
       type: 'button',

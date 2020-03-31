@@ -66,6 +66,7 @@ async function runbot(config) {
 
   // connect the processMessages callback
   await driver.reactToMessages(processMessages);
+  console.log('[info] Connected and waiting for messages');
 }
 
 exports.runbot = runbot;
